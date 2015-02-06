@@ -1,6 +1,4 @@
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.NoSuchElementException;
 import java.util.ArrayList;
 import java.util.Queue;
 
@@ -28,6 +26,14 @@ public class AdjancencyMatrix {
 			}
 		}
 	}
+	
+	public String citiesString() {
+		String cities = "";
+		for (String city : this.vertexNames) {
+			cities += city + ", ";
+		}
+		return cities.substring(0, cities.length() - 2);
+	}
 
 	public int getNumberOfVertices() {
 		return numberOfVertices;
@@ -45,6 +51,10 @@ public class AdjancencyMatrix {
 		this.numberOfEdges = numberOfEdges;
 	}
 
+	public ArrayList<String> getCities() {
+		return this.vertexNames;
+	}
+	
 	public void addEdge(String vertexA, String vertexB, int edgeWeight) {
 		int vertexAIndex = this.vertexNames.indexOf(vertexA);
 		int vertexBIndex = this.vertexNames.indexOf(vertexB);
@@ -96,8 +106,7 @@ public class AdjancencyMatrix {
 
 			for (int i = 0; i < this.adjancencyMatrix[cityIndex].length; i++) {
 				// If there is an edge (not zero) and we haven't visited, visit the city.
-				if (this.adjancencyMatrix[cityIndex][i] != 0
-						&& visitedCities[i] != 1) {
+				if (this.adjancencyMatrix[cityIndex][i] != 0 && visitedCities[i] != 1) {
 					String name = this.vertexNames.get(i);
 					queue.add(name);
 					visitedCities[i] = 1;
@@ -152,76 +161,10 @@ public class AdjancencyMatrix {
 			}
 		}
 	}
-
-	/*
-	 * Methods for Pretty Printing ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	 */
-
-	public Iterable<Integer> adjancencyMatrix(int v) {
-		return new AdjancencyMatrixIterator(v);
-	}
-
-	private class AdjancencyMatrixIterator implements Iterator<Integer>, Iterable<Integer> {
-		int v, w = 0;
-
-		AdjancencyMatrixIterator(int v) {
-			this.v = v;
-		}
-
-		public Iterator<Integer> iterator() {
-			return this;
-		}
-
-		public boolean hasNext() {
-			while (w < numberOfVertices) {
-				if (adjancencyMatrix[v][w] != 0) {
-					return true;
-				}
-				w++;
-			}
-			return false;
-		}
-
-		public Integer next() {
-			if (hasNext()) {
-				return w++;
-			} else {
-				throw new NoSuchElementException();
-			}
-		}
-	}
-
-	public void printMatrix() {
-		for (int i = 0; i < this.adjancencyMatrix.length; i++) {
-			String line = pad(this.vertexNames.get(i), 15, ' ');
-			for (int j = 0; j < this.adjancencyMatrix[i].length; j++) {
-				line += pad(Integer.toString(this.adjancencyMatrix[i][j]), 5, ' ');
-			}
-			System.out.println(line);
-		}
-
-		System.out.println("");
-
-		for (int pos = 0; pos < 15; pos++) {
-			String line = "               ";
-			for (int i = 0; i < this.adjancencyMatrix.length; i++) {
-				String name = this.vertexNames.get(i);
-				if (name.length() > pos) {
-					String c = String.valueOf(name.charAt(pos));
-					line += pad(c, 5, ' ');
-				} else {
-					line += "     ";
-				}
-			}
-			System.out.println(line);
-		}
-	}
-
-	public String pad(String str, int size, char padChar) {
-		StringBuffer padded = new StringBuffer(str);
-		while (padded.length() < size) {
-			padded.append(padChar);
-		}
-		return padded.toString();
+	
+	public void uniformCostSearch(String startCity, String endCity) {
+		System.out.println("Uniform Cost Search starting at " + startCity + " and looking for " + endCity);
+		// TODO: Dijkstra
+		System.out.println("TODO Dijkstra");
 	}
 }
