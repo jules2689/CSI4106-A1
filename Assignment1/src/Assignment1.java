@@ -2,8 +2,19 @@
 public class Assignment1 {
 
 	public static void main(String[] args) {
-        AdjancencyMatrix matrix = new AdjancencyMatrix(20);
-        String[] names = {"Oradea", "Zerind", "Arad", "Timisoara", "Lugoj", "Mehadia", "Drobeta", "Sibiu", "Rimnicu Vilcea", "Craiova", "Fagaras", "Pitesti", "Bucharest", "Giurgiu", "Urziceni", "Neamt", "Iasi", "Vaslui", "Hirsova", "Eforie"};
+		AdjancencyMatrix matrix = setupMatrix();
+        matrix.printMatrix();
+        matrix.breadthFirstSearch("Oradea", "Neamt");
+        matrix.depthFirstSearch("Oradea", "Neamt");
+    }
+	
+	public static AdjancencyMatrix setupMatrix() {
+		AdjancencyMatrix matrix = new AdjancencyMatrix(20);
+		
+        String[] names = {	"Oradea", "Zerind", "Arad", "Timisoara", "Lugoj", "Mehadia", 
+        					"Drobeta", "Sibiu", "Rimnicu Vilcea", "Craiova", "Fagaras", 
+        					"Pitesti", "Bucharest", "Giurgiu", "Urziceni", "Neamt", "Iasi", 
+        					"Vaslui", "Hirsova", "Eforie" };
         matrix.addVertices(names);
         
         matrix.addEdge("Oradea", "Zerind", 71);
@@ -36,11 +47,9 @@ public class Assignment1 {
         matrix.addEdge("Urziceni", "Vaslui", 142);
         matrix.addEdge("Vaslui", "Iasi", 92);
         matrix.addEdge("Iasi", "Neamt", 87);
-   
-        matrix.printMatrix();
-        matrix.breadthFirstSearch("Oradea", "Neamt");
-        matrix.depthFirstSearch("Oradea", "Neamt");
-    }
+        
+        return matrix;
+	}
 	
 	
 	
