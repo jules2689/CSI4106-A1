@@ -1,0 +1,161 @@
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.ArrayList;
+
+public class AdjancencyMatrix {
+	private int numberOfVertices;
+	private int numberOfEdges;
+	private int[][] adjancencyMatrix;
+	private ArrayList<String> vertexNames;
+	
+    public static void main(String[] args) {
+        AdjancencyMatrix matrix = new AdjancencyMatrix(20);
+        String[] names = {"Oradea", "Zerind", "Arad", "Timisoara", "Lugoj", "Mehadia", "Drobeta", "Sibiu", "Rimnicu Vilcea", "Craiova", "Fagaras", "Pitesti", "Bucharest", "Giurgiu", "Urziceni", "Neamt", "Iasi", "Vaslui", "Hirsova", "Eforie"};
+        matrix.addVertices(names);
+        
+        matrix.addEdge("Oradea", "Zerind", 71);
+        matrix.addEdge("Zerind", "Arad", 75);
+        matrix.addEdge("Arad", "Timisoara", 118);
+        matrix.addEdge("Timisoara", "Lugoj", 111);
+        matrix.addEdge("Lugoj", "Mehadia", 70);
+        matrix.addEdge("Mehadia", "Drobeta", 75);
+        
+        matrix.addEdge("Drobeta", "Craiova", 120);
+        matrix.addEdge("Oradea", "Sibiu", 151);
+        matrix.addEdge("Arad", "Sibiu", 140);
+        
+        matrix.addEdge("Sibiu", "Rimnicu Vilcea", 80);
+        matrix.addEdge("Rimnicu Vilcea", "Craiova", 146);
+        
+        matrix.addEdge("Sibiu", "Fagaras", 99);
+        matrix.addEdge("Rimnicu Vilcea", "Pitesti", 97);
+        matrix.addEdge("Craiova", "Pitesti", 138);
+        
+        matrix.addEdge("Fagaras", "Bucharest", 211);
+        matrix.addEdge("Pitesti", "Bucharest", 101);
+        
+        matrix.addEdge("Bucharest", "Giurgiu", 90);
+        
+        matrix.addEdge("Bucharest", "Urziceni", 85);
+        matrix.addEdge("Urziceni", "Hirsova", 98);
+        matrix.addEdge("Hirsova", "Eforie", 86);
+        
+        matrix.addEdge("Urziceni", "Vaslui", 142);
+        matrix.addEdge("Vaslui", "Iasi", 92);
+        matrix.addEdge("Iasi", "Neamt", 87);
+   
+        matrix.printMatrix();
+    }
+	
+	public AdjancencyMatrix(int numberOfVertices) {
+		if (numberOfVertices < 0) throw new RuntimeException("Number of vertices must be nonnegative");
+		this.setNumberOfVertices(numberOfVertices);
+		this.setNumberOfEdges(0);
+		initializeMatrix(); 
+		this.vertexNames = new ArrayList<String>(this.numberOfVertices);
+	}
+
+	private void initializeMatrix() {
+		this.adjancencyMatrix = new int[numberOfVertices][numberOfVertices];
+		for (int i = 0; i < this.adjancencyMatrix.length; i++) {
+			for (int j = 0; j < this.adjancencyMatrix[i].length; j++) {
+				this.adjancencyMatrix[i][j] = 0;
+			}
+		}
+	}
+	
+	public int getNumberOfVertices() { return numberOfVertices;	}
+	public int getNumberOfEdges() { return numberOfEdges; }
+	
+	private void setNumberOfVertices(int numberOfVertices) {
+		this.numberOfVertices = numberOfVertices;
+	}
+
+	private void setNumberOfEdges(int numberOfEdges) {
+		this.numberOfEdges = numberOfEdges;
+	}
+	
+	public void addEdge(String vertexA, String vertexB, int edgeWeight) {
+		int vertexAIndex = this.vertexNames.indexOf(vertexA);
+		int vertexBIndex = this.vertexNames.indexOf(vertexB);
+		
+		if (adjancencyMatrix[vertexAIndex][vertexBIndex] == 0) numberOfEdges++;
+		adjancencyMatrix[vertexAIndex][vertexBIndex] = edgeWeight;
+		adjancencyMatrix[vertexAIndex][vertexBIndex] = edgeWeight;
+	}
+	
+	public void addVertices(String[] vertices) {
+		for (String vertex : vertices) {
+			addVertex(vertex);
+		}
+	}
+	
+	public void addVertex(String vertex) {
+		this.vertexNames.add(vertex);
+	}
+	
+	public Iterable<Integer> adjancencyMatrix(int v) {
+        return new AdjancencyMatrixIterator(v);
+    }
+
+    private class AdjancencyMatrixIterator implements Iterator<Integer>, Iterable<Integer> {
+        int v, w = 0;
+        AdjancencyMatrixIterator(int v) { this.v = v; }
+
+        public Iterator<Integer> iterator() { return this; }
+
+        public boolean hasNext() {
+            while (w < numberOfVertices) {
+                if (adjancencyMatrix[v][w] != 0) {
+                	return true;
+                }
+                w++;
+            }
+            return false;
+        }
+
+        public Integer next() {
+            if (hasNext()) { 
+            	return w++;                        
+            } else { 
+            	throw new NoSuchElementException(); 
+            }
+        }
+    }
+	
+	public void printMatrix() {
+		for (int i = 0; i < this.adjancencyMatrix.length; i++) {
+			String line = "";
+			for (int j = 0; j < this.adjancencyMatrix[i].length; j++) {
+				line += pad(Integer.toString(this.adjancencyMatrix[i][j]), 5, ' ');
+			}
+			System.out.println(line);
+		}
+		
+		System.out.println("");
+		
+		for (int pos = 0; pos < 15; pos++) {
+			String line = "                  ";
+			for (int i = 0; i < this.adjancencyMatrix.length; i++) {
+				String name = this.vertexNames.get(i);
+				if (name.length() > pos) {
+					String c = String.valueOf(name.charAt(pos));
+					line += pad(c, 5, ' ');
+				} else {
+					line += "     ";
+				}
+			}
+			System.out.println(line);
+		}
+    }
+	
+	public String pad(String str, int size, char padChar)
+	{
+	  StringBuffer padded = new StringBuffer(str);
+	  while (padded.length() < size)
+	  {
+	    padded.append(padChar);
+	  }
+	  return padded.toString();
+	}
+}
