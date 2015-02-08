@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 
 public class DepthFirstSearch extends Algorithm {
 	private boolean[] seen;
 	boolean reachedCity = false;
+	private ArrayList<String> cityList;
 	
 	public DepthFirstSearch(AdjancencyMatrix matrix) {
 		super(matrix);
@@ -22,15 +24,20 @@ public class DepthFirstSearch extends Algorithm {
 		initializeVariables();
 
 		// Perform Search
-		depthFirstSearchRecursive(startCity, endCity);
+		depthFirstSearchRecursive(startCity, endCity, 0);
 		if (!reachedCity) {
 			System.out.println("Couldn't reach city " + endCity);
 		}
 
-		System.out.println("");
+		outputAlgorithmStats();
 	}
 
-	public void depthFirstSearchRecursive(String startCity, String endCity) {
+	public void depthFirstSearchRecursive(String startCity, String endCity, int depth) {
+		this.numberOfVistedCities++;
+		if (depth > this.maxNumberOfCitiesInTheQueue) {
+			this.maxNumberOfCitiesInTheQueue = depth;
+		}
+		
 		if (startCity.equals(endCity)) {
 			System.out.println("Reached city " + startCity);
 			reachedCity = true;
@@ -43,7 +50,7 @@ public class DepthFirstSearch extends Algorithm {
 				// If we haven't seen the city, and it has an edge to the city
 				if (!this.seen[idx] && this.adjancencyMatrix[cityIndex][idx] != 0) {
 					String name = this.vertexNames.get(idx);
-					depthFirstSearchRecursive(name, endCity);
+					depthFirstSearchRecursive(name, endCity, depth + 1);
 				}
 			}
 		}

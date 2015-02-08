@@ -68,7 +68,7 @@ public class Assignment1 {
 				break;
 		}
 		
-		System.out.println("=============================================");
+		System.out.println("=============================================================");
 		algorithm.perform(startCity, endCity);
 	}
 	

@@ -26,7 +26,8 @@ public class BreadthFirstSearch extends Algorithm {
 		whileLoop: while (!queue.isEmpty()) {
 			city = (String) queue.remove();
 			int cityIndex = this.vertexNames.indexOf(city);
-
+			this.numberOfVistedCities++;
+			
 			// If the current city is the end city, break out of the loop
 			if (city.equals(endCity)) {
 				System.out.println("Reached city " + city + ".");
@@ -41,6 +42,9 @@ public class BreadthFirstSearch extends Algorithm {
 				if (this.adjancencyMatrix[cityIndex][i] != 0 && visitedCities[i] != 1) {
 					String name = this.vertexNames.get(i);
 					queue.add(name);
+					if (queue.size() > this.maxNumberOfCitiesInTheQueue) {
+						this.maxNumberOfCitiesInTheQueue = queue.size();
+					}
 					visitedCities[i] = 1;
 				}
 			}
@@ -50,7 +54,7 @@ public class BreadthFirstSearch extends Algorithm {
 			System.out.println("Couldn't Reach City " + endCity);
 		}
 
-		System.out.println("");
+		outputAlgorithmStats();
 	}
 
 }

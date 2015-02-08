@@ -28,6 +28,7 @@ public class UniformCostSearch extends Algorithm {
 			node = queue.poll();
 			cityIndex = this.vertexNames.indexOf(node.name);
 			visitedCities[cityIndex] = true;
+			this.numberOfVistedCities++;
 			
 			if (cityDidReachEnd(node, endCity)) {
 				reachedCity = true;
@@ -41,6 +42,9 @@ public class UniformCostSearch extends Algorithm {
 					int totalCost = cost + node.totalCost;
 					Node currentNode = new Node(totalCost, name, node);
 					queue.add(currentNode);
+					if (queue.size() > this.maxNumberOfCitiesInTheQueue) {
+						this.maxNumberOfCitiesInTheQueue = queue.size();
+					}
 				}
 			}
 		}
@@ -69,6 +73,7 @@ public class UniformCostSearch extends Algorithm {
 				node = node.fromNode;
 			}
 		}
+		outputAlgorithmStats();
 	}
 	
 	private Comparator<Node> getNodeComparator() {
