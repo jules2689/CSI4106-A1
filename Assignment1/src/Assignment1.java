@@ -12,20 +12,7 @@ public class Assignment1 {
         System.out.println("Here are your city choices: " + matrix.citiesString());
 		String startCity = getChoice("What city are you in? ", matrix.getCities());
 		String endCity = getChoice("What city do you want to go to? ", matrix.getCities());
-		ArrayList<String> acceptableAlgs = new ArrayList<String>(Arrays.asList("b","d","u"));
-		String algorithm = getChoice("How do you want to go there? (b)readth first, (d)epth first, or (u)niform cost.", acceptableAlgs);
-		char alg = algorithm.charAt(0);
-		
-		switch (alg) {
-		case 'b':
-			matrix.breadthFirstSearch(startCity, endCity);
-			break;
-		case 'd':
-			matrix.depthFirstSearch(startCity, endCity);
-			break;
-		case 'u':
-			matrix.uniformCostSearch(startCity, endCity);
-		}
+		chooseAndPerformAlgorithm(matrix, startCity, endCity);
 	}
 	
 	public static AdjancencyMatrix setupMatrix() {
@@ -64,13 +51,32 @@ public class Assignment1 {
         return matrix;
 	}
 	
+	private static void chooseAndPerformAlgorithm(AdjancencyMatrix matrix, String startCity, String endCity) {
+		ArrayList<String> acceptableAlgs = new ArrayList<String>(Arrays.asList("b","d","u"));
+		String algorithmChoice = getChoice("How do you want to go there? (b)readth first, (d)epth first, or (u)niform cost.", acceptableAlgs);
+		Algorithm algorithm = null;
+		
+		switch (algorithmChoice.charAt(0)) {
+			case 'b':
+				algorithm = new BreadthFirstSearch(matrix);
+				break;
+			case 'd':
+				algorithm = new DepthFirstSearch(matrix);
+				break;
+			case 'u':
+				algorithm = new UniformCostSearch(matrix);
+				break;
+		}
+		
+		System.out.println("=============================================");
+		algorithm.perform(startCity, endCity);
+	}
+	
 	private static String getChoice(String message, ArrayList<String> acceptableChoices) {
 		String choice = "N/A";
 		
 		try {
-			while(acceptableChoices.contains(choice) == false) {
-				choice = readLine(message);
-			}
+			while(acceptableChoices.contains(choice) == false) { choice = readLine(message); }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -79,12 +85,9 @@ public class Assignment1 {
 	}
 	
 	private static String readLine(String format, Object... args) throws IOException {
-	    if (System.console() != null) {
-	        return System.console().readLine(format, args);
-	    }
+	    if (System.console() != null) { return System.console().readLine(format, args); }
 	    System.out.print(String.format(format, args));
-	    BufferedReader reader = new BufferedReader(new InputStreamReader(
-	            System.in));
+	    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 	    return reader.readLine();
 	}
 	
