@@ -53,7 +53,7 @@ public class Assignment1 {
 	
 	private static void chooseAndPerformAlgorithm(AdjancencyMatrix matrix, String startCity, String endCity) {
 		ArrayList<String> acceptableAlgs = new ArrayList<String>(Arrays.asList("b","d","u"));
-		String algorithmChoice = getChoice("How do you want to go there? (b)readth first, (d)epth first, or (u)niform cost.", acceptableAlgs);
+		String algorithmChoice = getChoice("How do you want to go there? (b)readth first, (d)epth first, or (u)niform cost. ", acceptableAlgs);
 		Algorithm algorithm = null;
 		
 		switch (algorithmChoice.charAt(0)) {
@@ -68,7 +68,6 @@ public class Assignment1 {
 				break;
 		}
 		
-		System.out.println("=============================================================");
 		algorithm.perform(startCity, endCity);
 	}
 	

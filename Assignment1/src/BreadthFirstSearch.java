@@ -9,9 +9,11 @@ public class BreadthFirstSearch extends Algorithm {
 	
 	@Override
 	public void perform(String startCity, String endCity) {
+		System.out.println("=============================================================");
 		System.out.println("Breadth First Search starting at " + startCity + " and looking for " + endCity);
+		System.out.println("=============================================================");
 		boolean reachedCity = false;
-		Queue<String> queue = new LinkedList<String>();
+		Queue<Node> queue = new LinkedList<Node>();
 
 		// Initialize Visited Cities to all 0
 		int[] visitedCities = new int[this.numberOfVertices];
@@ -19,29 +21,31 @@ public class BreadthFirstSearch extends Algorithm {
 			visitedCities[i] = 0;
 		}
 
-		String city = startCity;
+		Node city = new Node(0, startCity, null);
 		queue.add(city);
 		visitedCities[this.vertexNames.indexOf(startCity)] = 1;
 
 		whileLoop: while (!queue.isEmpty()) {
-			city = (String) queue.remove();
-			int cityIndex = this.vertexNames.indexOf(city);
+			city = (Node) queue.remove();
+			int cityIndex = this.vertexNames.indexOf(city.name);
 			this.numberOfVistedCities++;
 			
 			// If the current city is the end city, break out of the loop
-			if (city.equals(endCity)) {
-				System.out.println("Reached city " + city + ".");
+			if (city.name.equals(endCity)) {
+				System.out.println("Reached city " + city.name + ".");
 				reachedCity = true;
+				formStackPath(city);
 				break whileLoop;
 			} else {
-				System.out.println("Examining city " + city + ".");
+				System.out.println("Examining city " + city.name + ".");
 			}
 
 			for (int i = 0; i < this.adjancencyMatrix[cityIndex].length; i++) {
 				// If there is an edge (not zero) and we haven't visited, visit the city.
 				if (this.adjancencyMatrix[cityIndex][i] != 0 && visitedCities[i] != 1) {
 					String name = this.vertexNames.get(i);
-					queue.add(name);
+					Node node = new Node(0, name, city);
+					queue.add(node);
 					if (queue.size() > this.maxNumberOfCitiesInTheQueue) {
 						this.maxNumberOfCitiesInTheQueue = queue.size();
 					}

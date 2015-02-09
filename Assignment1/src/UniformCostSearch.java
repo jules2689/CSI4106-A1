@@ -9,7 +9,9 @@ public class UniformCostSearch extends Algorithm {
 	
 	@Override
 	public void perform(String startCity, String endCity) {
+		System.out.println("=============================================================");
 		System.out.println("Uniform Cost Search starting at " + startCity + " and looking for " + endCity);
+		System.out.println("=============================================================");
 		
 		// Initialize Variables
 	    boolean reachedCity = false;
@@ -32,6 +34,7 @@ public class UniformCostSearch extends Algorithm {
 			
 			if (cityDidReachEnd(node, endCity)) {
 				reachedCity = true;
+				formStackPath(node);
 				break uniformWhileLoop;
 			}
 			
@@ -49,7 +52,10 @@ public class UniformCostSearch extends Algorithm {
 			}
 		}
 		
-		outputFinalInformation(reachedCity, node);
+		if (!reachedCity) {
+			System.out.println("Couldn't Reach City");
+		}
+		outputAlgorithmStats();
 	}
 	
 	private boolean cityDidReachEnd(Node node, String endCity) {
@@ -64,18 +70,6 @@ public class UniformCostSearch extends Algorithm {
 		return false;
 	}
 	
-	private void outputFinalInformation(boolean reachedCity, Node node) {
-		if (!reachedCity) {
-			System.out.println("Couldn't Reach City");
-		} else {
-			while(node.fromNode != null) {
-				System.out.println("Visited " + node.fromNode.name);
-				node = node.fromNode;
-			}
-		}
-		outputAlgorithmStats();
-	}
-	
 	private Comparator<Node> getNodeComparator() {
 		Comparator<Node> nodeComparator = new Comparator<Node>() {
 	        @Override
@@ -84,17 +78,5 @@ public class UniformCostSearch extends Algorithm {
 	        }
 	    };
 	    return nodeComparator;
-	}
-	
-	private class Node {
-		public int totalCost;
-		public String name;
-		public Node fromNode;
-		
-		private Node(int totalCost, String name, Node fromNode) {
-			this.totalCost = totalCost;
-			this.name = name;
-			this.fromNode = fromNode;
-		}
 	}
 }

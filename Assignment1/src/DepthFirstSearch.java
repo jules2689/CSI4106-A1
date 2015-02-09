@@ -1,9 +1,7 @@
-import java.util.ArrayList;
 
 public class DepthFirstSearch extends Algorithm {
 	private boolean[] seen;
 	boolean reachedCity = false;
-	private ArrayList<String> cityList;
 	
 	public DepthFirstSearch(AdjancencyMatrix matrix) {
 		super(matrix);
@@ -20,11 +18,13 @@ public class DepthFirstSearch extends Algorithm {
 	
 	@Override
 	public void perform(String startCity, String endCity) {
+		System.out.println("=============================================================");
 		System.out.println("Depth First Search starting at " + startCity + " and looking for " + endCity);
+		System.out.println("=============================================================");
 		initializeVariables();
 
 		// Perform Search
-		depthFirstSearchRecursive(startCity, endCity, 0);
+		depthFirstSearchRecursive(startCity, endCity, 0, new Node(0, startCity, null));
 		if (!reachedCity) {
 			System.out.println("Couldn't reach city " + endCity);
 		}
@@ -32,7 +32,7 @@ public class DepthFirstSearch extends Algorithm {
 		outputAlgorithmStats();
 	}
 
-	public void depthFirstSearchRecursive(String startCity, String endCity, int depth) {
+	public void depthFirstSearchRecursive(String startCity, String endCity, int depth, Node fromNode) {
 		this.numberOfVistedCities++;
 		if (depth > this.maxNumberOfCitiesInTheQueue) {
 			this.maxNumberOfCitiesInTheQueue = depth;
@@ -41,6 +41,7 @@ public class DepthFirstSearch extends Algorithm {
 		if (startCity.equals(endCity)) {
 			System.out.println("Reached city " + startCity);
 			reachedCity = true;
+			formStackPath(fromNode);
 		} else if (!reachedCity) {
 			System.out.println("Examining city " + startCity + ".");
 			int cityIndex = this.vertexNames.indexOf(startCity);
@@ -50,7 +51,8 @@ public class DepthFirstSearch extends Algorithm {
 				// If we haven't seen the city, and it has an edge to the city
 				if (!this.seen[idx] && this.adjancencyMatrix[cityIndex][idx] != 0) {
 					String name = this.vertexNames.get(idx);
-					depthFirstSearchRecursive(name, endCity, depth + 1);
+					Node node = new Node(0, name, fromNode);
+					depthFirstSearchRecursive(name, endCity, depth + 1, node);
 				}
 			}
 		}
