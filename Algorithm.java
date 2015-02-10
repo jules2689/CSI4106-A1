@@ -45,6 +45,8 @@ public class Algorithm {
 		while (!this.path.isEmpty()) {
 			System.out.print(" -> " + this.path.pop());
 		}
+		
+		System.out.println("");
 	}
 	
 }

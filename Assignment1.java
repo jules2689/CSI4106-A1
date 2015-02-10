@@ -8,6 +8,10 @@ import java.util.Arrays;
 public class Assignment1 {
 
 	public static void main(String[] args) {
+		System.out.println("Assignment 1, CSI4106");
+		System.out.println("Julian Nadeau, 6008161");
+		System.out.println("=============================================================");
+		
 		AdjancencyMatrix matrix = setupMatrix();
         System.out.println("Here are your city choices: " + matrix.citiesString());
 		String startCity = getChoice("What city are you in? ", matrix.getCities());
