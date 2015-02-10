@@ -1,47 +1,33 @@
-!SESSION 2015-02-05 21:07:47.278 -----------------------------------------------
-eclipse.buildId=4.4.1.M20140925-0400
-java.version=1.8.0_31
-java.vendor=Oracle Corporation
-BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
-Framework arguments:  -product org.eclipse.epp.package.jee.product -keyring /Users/juliannadeau/.eclipse_keyring -showlocation
-Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.jee.product -keyring /Users/juliannadeau/.eclipse_keyring -showlocation
 
-!ENTRY org.eclipse.m2e.logback.configuration 2 0 2015-02-05 21:09:39.630
-!MESSAGE Exception while setting up logging:org.eclipse.osgi.internal.framework.EquinoxConfiguration$1 cannot be cast to java.lang.String
+!ENTRY org.eclipse.core.resources 4 2 2015-02-09 20:33:17.509
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
 !STACK 0
-java.lang.ClassCastException: org.eclipse.osgi.internal.framework.EquinoxConfiguration$1 cannot be cast to java.lang.String
-	at org.eclipse.m2e.logback.configuration.LogHelper.logJavaProperties(LogHelper.java:26)
-	at org.eclipse.m2e.logback.configuration.LogPlugin.loadConfiguration(LogPlugin.java:189)
-	at org.eclipse.m2e.logback.configuration.LogPlugin.configureLogback(LogPlugin.java:144)
-	at org.eclipse.m2e.logback.configuration.LogPlugin.access$2(LogPlugin.java:107)
-	at org.eclipse.m2e.logback.configuration.LogPlugin$1.run(LogPlugin.java:62)
-	at java.util.TimerThread.mainLoop(Timer.java:555)
-	at java.util.TimerThread.run(Timer.java:505)
+java.lang.IllegalStateException: Registry Directory not available: /Users/juliannadeau/Development/school/CSI4106/Assignment1/.metadata/.plugins/org.eclipse.pde.core/.p2/org.eclipse.equinox.p2.engine/profileRegistry.
+	at org.eclipse.equinox.internal.p2.engine.SimpleProfileRegistry.restore(SimpleProfileRegistry.java:507)
+	at org.eclipse.equinox.internal.p2.engine.SimpleProfileRegistry.getProfileMap(SimpleProfileRegistry.java:365)
+	at org.eclipse.equinox.internal.p2.engine.SimpleProfileRegistry.getProfiles(SimpleProfileRegistry.java:347)
+	at org.eclipse.pde.internal.core.target.P2TargetUtils.cleanOrphanedTargetDefinitionProfiles(P2TargetUtils.java:164)
+	at org.eclipse.pde.internal.core.PDECore$1.saving(PDECore.java:293)
+	at org.eclipse.core.internal.resources.SaveManager.executeLifecycle(SaveManager.java:386)
+	at org.eclipse.core.internal.resources.SaveManager$1.run(SaveManager.java:195)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.resources.SaveManager.broadcastLifecycle(SaveManager.java:198)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1165)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1144)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:51)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
 
-!ENTRY org.eclipse.core.net 1 0 2015-02-05 21:09:41.486
-!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
-!SESSION 2015-02-08 18:38:28.826 -----------------------------------------------
-eclipse.buildId=4.4.1.M20140925-0400
-java.version=1.8.0_31
-java.vendor=Oracle Corporation
-BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
-Framework arguments:  -product org.eclipse.epp.package.jee.product -keyring /Users/juliannadeau/.eclipse_keyring -showlocation
-Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.jee.product -keyring /Users/juliannadeau/.eclipse_keyring -showlocation
-
-!ENTRY org.eclipse.core.resources 2 10035 2015-02-08 18:38:31.975
-!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
-
-!ENTRY org.eclipse.m2e.logback.configuration 2 0 2015-02-08 18:38:32.294
-!MESSAGE Exception while setting up logging:org.eclipse.osgi.internal.framework.EquinoxConfiguration$1 cannot be cast to java.lang.String
+!ENTRY org.eclipse.core.resources 4 568 2015-02-09 20:33:17.513
+!MESSAGE Could not write workspace metadata '/Users/juliannadeau/Development/school/CSI4106/Assignment1/.metadata/.plugins/org.eclipse.core.resources/0.snap'.
 !STACK 0
-java.lang.ClassCastException: org.eclipse.osgi.internal.framework.EquinoxConfiguration$1 cannot be cast to java.lang.String
-	at org.eclipse.m2e.logback.configuration.LogHelper.logJavaProperties(LogHelper.java:26)
-	at org.eclipse.m2e.logback.configuration.LogPlugin.loadConfiguration(LogPlugin.java:189)
-	at org.eclipse.m2e.logback.configuration.LogPlugin.configureLogback(LogPlugin.java:144)
-	at org.eclipse.m2e.logback.configuration.LogPlugin.access$2(LogPlugin.java:107)
-	at org.eclipse.m2e.logback.configuration.LogPlugin$1.run(LogPlugin.java:62)
-	at java.util.TimerThread.mainLoop(Timer.java:555)
-	at java.util.TimerThread.run(Timer.java:505)
-
-!ENTRY org.eclipse.core.net 1 0 2015-02-08 18:38:34.107
-!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+java.io.FileNotFoundException: /Users/juliannadeau/Development/school/CSI4106/Assignment1/.metadata/.plugins/org.eclipse.core.resources/0.snap (No such file or directory)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:133)
+	at org.eclipse.core.internal.localstore.SafeChunkyOutputStream.<init>(SafeChunkyOutputStream.java:45)
+	at org.eclipse.core.internal.localstore.SafeChunkyOutputStream.<init>(SafeChunkyOutputStream.java:41)
+	at org.eclipse.core.internal.resources.SaveManager.snapTree(SaveManager.java:1484)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1198)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1144)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:51)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)

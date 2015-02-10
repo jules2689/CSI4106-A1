@@ -1,5 +1,7 @@
 # CSI4106-A1
 
+Julian Nadeau, 6008161
+
 Purpose
 ---
 The	 purpose	 of	 this	 assignment	 is	 to	 allow	 you	 to	 experiment	 with	 multiple	
@@ -14,3 +16,7 @@ various	 cities	 in	 Romania.	 Each	 edge	 means	 that	 there	 is	 a	 bidirectio
 between	the	connecting	nodes.	The	number	on	the	edges	represents	the	cost	to	
 travel	from	one	city	to	another.
 
+How to Run
+---
+Run "javac Assignment1.java" in Terminal (or Command Line).
+Run "java Assignment1", follow onscreen instructions.
